@@ -1,0 +1,80 @@
+body, html {
+    /* De hele website kleur, margin en padding instellen */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: lightgray;
+}
+
+.container {
+    display: flex;            /* Maakt een flex-container */
+    justify-content: center;
+    gap: 10px;                /* Voegt ruimte toe tussen de elementen in de container */
+    margin-top: 20px; /* Dit verplaatst de container naar beneden */
+}
+
+.container2 {
+    display: flex;            /* Maakt nog een flex-container */
+    justify-content: center;
+    gap: 10px;                /* Voegt ruimte toe tussen de elementen in de container */
+}
+
+.empty-div {
+    width: 100px;
+    height: 150px;
+    background-color: lightgray;
+}
+
+.roster-grid {
+    display: flex;            /* Precies hetzelfde maar voor de flipkaartengrid */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Maakt alle flipkaarten flipkaarten */
+.flip-card {
+    background-color: transparent; /* Stellt de kleur in */
+    width: 100px;                  /* Stellt de breedte en lengte in */
+    height: 150px;
+    perspective: 1000px;           /* Ik weet niet */
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;             /* Alle tekst in het midden leggen */
+    transition: transform 0.8s;     /* Animatie dingen */
+    transform-style: preserve-3d;
+}
+
+.flip-card .flip-card-inner.flip {
+    transform: rotateY(180deg);     /* Animatie dingen */
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.flip-card-front {
+    background-color: white; /* De kleur van de voorkant van de flipkaart */
+    color: black;   /* De kleur van de tekst van de flipkaart */
+    display: flex;
+    align-items: center;    /* Alles in de flipkaart in de midden zetten horizontaal en verticaal */
+    justify-content: center;
+}
+
+.flip-card-back {
+    background-color: darkgray; /* De kleur van de achterkant van de flipkaart */
+    transform: rotateY(180deg); /* Animatie dingen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

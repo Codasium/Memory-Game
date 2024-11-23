@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Een div container zodat ik alles netjes kan houden -->
+  <div class="container">
+    <!-- Inputbox voor hoeveel kaarten -->
+    <input id="inputCards" placeholder="Hoeveel kaarten?">
+    <!-- Knop om de spel te beginnen -->
+    <button onclick="BeginGame()">Begin</button>
+    <!-- Knop om multiplayer aan te zetten -->
+    <button id="multiplayerButton" onclick="AddMultiplayer()">Multiplayer: Uit</button>
+    <!-- Knop een timer in te voeren -->
+    <button id="timerButton" onclick="AddTimer()">Timer: Uit</button>
+  </div>
+  <div class="container2">
+    <!-- Score, timer en beurt tekst -->
+    <h1 id="score">Score: 0</h1>
+    <h1 id="timer"></h1>
+    <h1 id="turn"></h1>
+  </div>
+  <!-- Div waar alle flipkaarten erin gaan -->
+  <div class="roster-grid"></div>
+  <script src="main.js"></script>
+</body>
+</html>
