@@ -180,13 +180,13 @@ function BeginGame() {
 
     // Allemaal logica voor als je niet goed hebt ingevoerd
     if (inputCards.value == "") {
-        alert("Je hebt geen nummer ingevuld!");
+        alert("Je hebt geen nummer ingevuld bij hoeveel kaarten!");
         return;
     }
 
     if (timer) {
         if (inputTimer1.value == "" && inputTimer2.value == "") {
-            alert("Je hebt geen nummer ingevuld!")
+            alert("Je hebt geen nummer ingevuld bij de timer!")
             return;
         }
 
@@ -206,27 +206,27 @@ function BeginGame() {
                 return;
             }
         } else {
-            alert("Dat is geen nummer!")
+            alert("Dat is geen nummer bij de timer!")
             return;
         }
     }
 
     if (typeof howManyCards == "number" && !isNaN(howManyCards)) {
         if (!Number.isInteger(howManyCards)) {
-            alert("Dat is geen hele nummer!");
+            alert("Dat is geen hele nummer bij hoeveel kaarten!");
             return;
         } else if (howManyCards <= 0) {
             alert("Te weinig kaarten!");
             return;
         } else if (howManyCards % 2 !== 0) {
-            alert("Dat is geen meervoud van 2!");
+            alert("Dat is geen meervoud van 2 bij hoeveel kaarten!");
             return;
         } else if (emojis.length * 2 < howManyCards) {
             alert("Dat zijn teveel kaarten!");
             return;
         }
     } else {
-        alert("Dat is geen nummer!");
+        alert("Dat is geen nummer bij hoeveel kaarten!");
         return;
     }
 
@@ -265,11 +265,16 @@ function AddFlipCards(kaarten) {
 
             // Als het aftellen voorbij is heb je verloren
             if ((timeLeft <= 0 || score >= howManyCards/2) || !ongoingGame) {
-                clearInterval(interval);
                 if (timeLeft <= 0) {
+                    // Zeker maken dat de timer niet in de min gaat
+                    timerText.textContent = "Tijd over: 0m 0s";
                     if (multiplayer1) {
                         // Als je multiplayer speelt dan rekent het uit wie de meeste punten had en die heeft dan gewonnen
-                        if (blueScore > redScore) {
+                        if (blueScore == redScore) {
+                            setTimeout(() => {
+                                alert("Het is gelijkspel.");
+                            }, 500);
+                        } else if (blueScore > redScore) {
                             setTimeout(() => {
                                 alert("Blauw heeft gewonnen.");
                             }, 500);
@@ -279,11 +284,14 @@ function AddFlipCards(kaarten) {
                             }, 500);
                         }
                     } else {
+                        // Zet een timeout zodat je niet op de kaarten kan klikken terwijl je al af bent
+                        timeOut = true;
                         setTimeout(() => {
                             alert("Je hebt verloren.");
                         }, 500);
                     }
                 }
+                clearInterval(interval);
             }
         }, 20);
     }
@@ -349,6 +357,7 @@ function AddFlipCards(kaarten) {
     flipCards = document.querySelectorAll('.flip-card');
 
     // Stellt alles weer normaal als het verandert werdt in de vorige spel
+    timeOut = false;
     score = 0;
     blueScore = 0;
     redScore = 0;
@@ -359,7 +368,7 @@ function AddFlipCards(kaarten) {
         scoreText.textContent = "Blauw Score: 0 Rood Score: 0";
         turnText.textContent = "Beurt: Blauw";
         flipCardsFront.forEach(function(card) {
-            card.style.setProperty("background-color", "red");
+            card.style.setProperty("background-color", "blue");
         });
     } else {
         scoreText.textContent = "Score: 0";
@@ -406,13 +415,17 @@ function AddFlipCards(kaarten) {
                             
                             // Als alle kaarten weg zijn controleert het wie meer punten heeft en speler heeft dan gewonnen
                             if (blueScore + redScore >= kaarten/2) {
-                                if (blueScore > redScore) {
+                                if (blueScore == redScore) {
                                     setTimeout(() => {
-                                        alert("Blauw heeft gewonnen.");
+                                        alert("Het is gelijkspel.");
+                                    }, 500);
+                                } else if (redScore > blueScore) {
+                                    setTimeout(() => {
+                                        alert("Rood heeft gewonnen.");
                                     }, 500);
                                 } else {
                                     setTimeout(() => {
-                                        alert("Rood heeft gewonnen.");
+                                        alert("Blauw heeft gewonnen.");
                                     }, 500);
                                 }
 
